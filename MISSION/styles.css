@@ -2,6 +2,8 @@ body {
     font-size: 20px;
     font-family: 'Times New Roman', Times, serif;
     line-height: 1.5;
+    background-color: #ffffff;
+    color: #000000;
 }
 
 .content {
@@ -36,4 +38,20 @@ p, ol {
     width: 150px;
     height: auto;
     margin-top: 20px;
+}
+
+
+.dark {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+.dark .title h2 {
+    color: #4da6ff;
+}
+
+#themeSelector {
+    margin-top: 10px;
+    padding: 5px;
+    font-size: 16px;
 }
