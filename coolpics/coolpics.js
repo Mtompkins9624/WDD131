@@ -1,17 +1,17 @@
 // Menu toggle functionality
 const menuButton = document.querySelector('.menu-button');
-const navLinks = document.querySelector('nav a');
+const navLinks = document.querySelectorAll('.nav-link');
 
 menuButton.addEventListener('click', () => {
-    navLinks.classList.toggle('hide');
+    navLinks.forEach(link => link.classList.toggle('hide'));
 });
 
 // Handle window resize
 function handleResize() {
     if (window.innerWidth > 1000) {
-        navLinks.classList.remove('hide');
+        navLinks.forEach(link => link.classList.remove('hide'));
     } else {
-        navLinks.classList.add('hide');
+        navLinks.forEach(link => link.classList.add('hide'));
     }
 }
 
