@@ -17,3 +17,37 @@ function handleResize() {
 
 window.addEventListener('resize', handleResize);
 handleResize(); 
+
+
+function viewerTemplate(imagePath, altText) {
+    return `
+    <div class="viewer">
+        <button class="close-viewer">X</button>
+        <img src="${imagePath}" alt="${altText}">
+    </div>
+    `;
+}
+
+function viewHandler(event) {
+    const clickedElement = event.target;
+    if (clickedElement.tagName === 'IMG') {
+        const imageSrc = clickedElement.src;
+        const imageAlt = clickedElement.alt;
+        const fullImageSrc = imageSrc.split('-')[0] + '-full.jpeg';
+        
+        document.body.insertAdjacentHTML('afterbegin', viewerTemplate(fullImageSrc, imageAlt));
+        
+        const closeButton = document.querySelector('.close-viewer');
+        closeButton.addEventListener('click', closeViewer);
+    }
+}
+
+function closeViewer() {
+    const viewer = document.querySelector('.viewer');
+    if (viewer) {
+        viewer.remove();
+    }
+}
+
+const gallery = document.querySelector('.gallery');
+gallery.addEventListener('click', viewHandler);
