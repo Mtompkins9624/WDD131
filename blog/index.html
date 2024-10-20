@@ -24,25 +24,40 @@
         </nav>
     </header>
     <main id="maincontent">
-        <section class="articles">
-            <article>
-                <div class="article-meta">
-                    <time datetime="2022-07-05">July 5, 2022</time>
-                    <span class="age-range">10-14</span>
-                    <span class="genre">Fantasy</span>
-                    <div class="rating">★★★★☆</div>
-                </div>
-                <div class="article-content">
-                    <h2>Septimus Heap Book One: Magyk</h2>
-                    <img src="path_to_image" alt="Cover of Septimus Heap Book One: Magyk">
-                    <p>If you enjoy stories about seventh sons of seventh sons and magyk this is the book for you. <a href="#">Read More...</a></p>
-                </div>
-            </article>
-            <!-- More articles would go here -->
+        <section id="articles" class="articles">
+            <!-- Articles will be dynamically inserted here -->
         </section>
         <aside>
             <h2>Filters</h2>
-            <p>Filter form will go here</p>
+            <form id="filter-form">
+                <label for="sort">Sort:</label>
+                <select id="sort" name="sort">
+                    <option value="date">Date</option>
+                    <option value="title">Title</option>
+                </select>
+
+                <label for="age">Age:</label>
+                <select id="age" name="age">
+                    <option value="">All</option>
+                    <option value="10-14">10-14</option>
+                    <option value="12-16">12-16</option>
+                </select>
+
+                <label for="genre">Genre:</label>
+                <select id="genre" name="genre">
+                    <option value="">All</option>
+                    <option value="Fantasy">Fantasy</option>
+                </select>
+
+                <label for="rating">Rating:</label>
+                <select id="rating" name="rating">
+                    <option value="">All</option>
+                    <option value="4">4+ stars</option>
+                    <option value="3">3+ stars</option>
+                </select>
+
+                <button type="submit">Apply Filters</button>
+            </form>
         </aside>
     </main>
     <footer>

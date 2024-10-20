@@ -1,27 +1,55 @@
-const articles = [
-	{
-		id: 1,
-		title: 'Septimus Heap Book One: Magyk',
-		date: 'July 5, 2022',
-		description:
-			'If you enjoy stories about seventh sons of seventh sons and magyk this is the book for you.',
-		imgSrc: 'https://upload.wikimedia.org/wikipedia/en/5/5f/Magkycover2.jpg',
-		imgAlt: 'Book cover for Septimus Heap 1',
-		ages: '10-14',
-		genre: 'Fantasy',
-		stars: '****'
-	},
-	{
-		id: 2,
-		title: 'Magnus Chase Book One: Sword of Summer',
-		date: 'December 12, 2021',
-		description:
-			'The anticipated new novel by Rick Riordan. After Greek mythology (Percy Jackson), Greek/Roman (Heroes of Olympus), and Egyptian (Kane Chronicles), Rick decides to try his hand with Norse Mythology, and the end result is good.',
-		imgSrc:
-			'https://books.google.com/books/content/images/frontcover/xWuyBAAAQBAJ?fife=w300',
-		imgAlt: 'Book cover for Magnus Chase 1',
-		ages: '12-16',
-		genre: 'Fantasy',
-		stars: '⭐⭐⭐⭐'
-	}
-]
+document.addEventListener('DOMContentLoaded', () => {
+    const articlesContainer = document.getElementById('articles');
+
+    function renderArticles(articles) {
+        articlesContainer.innerHTML = '';
+        articles.forEach(article => {
+            const articleElement = document.createElement('article');
+            articleElement.innerHTML = `
+                <div class="article-meta">
+                    <time datetime="${article.date}">${article.date}</time>
+                    <span class="age-range">${article.ages}</span>
+                    <span class="genre">${article.genre}</span>
+                    <div class="rating">${article.stars}</div>
+                </div>
+                <div class="article-content">
+                    <h2>${article.title}</h2>
+                    <img src="${article.imgSrc}" alt="${article.imgAlt}">
+                    <p>${article.description} <a href="#">Read More...</a></p>
+                </div>
+            `;
+            articlesContainer.appendChild(articleElement);
+        });
+    }
+
+    renderArticles(articles);
+
+    const filterForm = document.getElementById('filter-form');
+    filterForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const sort = document.getElementById('sort').value;
+        const age = document.getElementById('age').value;
+        const genre = document.getElementById('genre').value;
+        const rating = document.getElementById('rating').value;
+
+        let filteredArticles = [...articles];
+
+        if (age) {
+            filteredArticles = filteredArticles.filter(article => article.ages === age);
+        }
+        if (genre) {
+            filteredArticles = filteredArticles.filter(article => article.genre === genre);
+        }
+        if (rating) {
+            filteredArticles = filteredArticles.filter(article => article.stars.length >= parseInt(rating));
+        }
+
+        if (sort === 'date') {
+            filteredArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
+        } else if (sort === 'title') {
+            filteredArticles.sort((a, b) => a.title.localeCompare(b.title));
+        }
+
+        renderArticles(filteredArticles);
+    });
+});
