@@ -1,0 +1,68 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Card Form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <form id="creditCardForm">
+            <div class="card-container">
+                <!-- Front of card -->
+                <div class="card card-front">
+                    <div class="card-header">
+                        <div class="total">TOTAL: $199</div>
+                        <svg class="card-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 46a4 4 0 004 4h48a4 4 0 004-4V18a4 4 0 00-4-4H6a4 4 0 00-4 4v28z" 
+                                  stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                            <line x1="9" x2="28" y1="39" y2="39" stroke-width="2" stroke="currentColor"/>
+                            <line x1="32" x2="51" y1="39" y2="39" stroke-width="2" stroke="currentColor"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cardNumber">CARD NUMBER</label>
+                        <input type="text" id="cardNumber" name="cardNumber" 
+                               pattern="\d{4}\s?\d{4}\s?\d{4}\s?\d{4}"
+                               placeholder="1234 5678 9101 1234" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group card-holder">
+                            <label for="cardHolder">CARD HOLDER</label>
+                            <input type="text" id="cardHolder" name="cardHolder" required>
+                        </div>
+                        <div class="form-group expiration">
+                            <label>EXPIRATION</label>
+                            <div class="expiry-inputs">
+                                <input type="text" name="expiryMonth" 
+                                       placeholder="MM" pattern="(0[1-9]|1[0-2])" required>
+                                <input type="text" name="expiryYear" 
+                                       placeholder="YY" pattern="[0-9]{2}" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Back of card -->
+                <div class="card card-back">
+                    <div class="card-stripe"></div>
+                    <div class="cvc-container">
+                        <div class="form-group">
+                            <label for="cvc">CVC/CVV</label>
+                            <input type="text" id="cvc" name="cvc" 
+                                   pattern="\d{3,4}" maxlength="4" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
