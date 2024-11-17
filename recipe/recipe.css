@@ -1,4 +1,4 @@
-/* Global Styles */
+
 :root {
     --primary-color: #1B98E0;
     --secondary-color: #59c3c3;
@@ -18,7 +18,7 @@
     max-width: 100%;
   }
   
-  /* Header Styles */
+  
   header {
     background-color: var(--primary-color);
     color: var(--text-light);
@@ -58,7 +58,7 @@
     cursor: pointer;
   }
   
-  /* Main Content Styles */
+
   .recipe-card {
     padding: 1rem;
     border: 1px solid #ccc;
@@ -81,8 +81,7 @@
     border-radius: 4px;
     margin: 0 0.25rem;
   }
-  
-  /* Footer Styles */
+ 
   footer {
     background-color: var(--text-dark);
     color: var(--text-light);
@@ -96,7 +95,7 @@
     margin: 0 0.5rem;
   }
   
-  /* Responsive Styles */
+  
   @media (min-width: 600px) {
     header {
       flex-direction: row;
