@@ -1,119 +1,156 @@
-(function() {
-    'use strict';
+// script.js
+import { services } from './services.js';
 
-    function initPerformanceOptimizations() {
-        const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-        if ('loading' in HTMLImageElement.prototype) {
-            lazyImages.forEach(img => {
-                img.src = img.dataset.src || img.src;
-            });
-        } else {
-            const script = document.createElement('script');
-            script.src = 'https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js';
-            script.onload = () => {
-                new LazyLoad({
-                    elements_selector: 'img[loading="lazy"]'
-                });
-            };
-            document.body.appendChild(script);
+class FormValidator {
+    constructor(formElement) {
+        this.form = formElement;
+        this.errors = [];
+    }
+
+    validateField(field) {
+        if (field.value.trim() === '') {
+            field.classList.add('error');
+            this.errors.push(`${field.id} is required`);
+            return false;
+        }
+        
+        if (field.type === 'email' && !this.isValidEmail(field.value)) {
+            field.classList.add('error');
+            this.errors.push('Invalid email format');
+            return false;
+        }
+
+        field.classList.remove('error');
+        return true;
+    }
+
+    isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    clearErrors() {
+        this.errors = [];
+        const errorFields = this.form.querySelectorAll('.error');
+        errorFields.forEach(field => field.classList.remove('error'));
+    }
+}
+
+class NavigationHandler {
+    constructor() {
+        this.mobileMenuBtn = document.getElementById('mobile-menu-toggle');
+        this.navLinks = document.querySelector('.navbar-links');
+        this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+        if (this.mobileMenuBtn) {
+            this.mobileMenuBtn.addEventListener('click', () => this.toggleMobileMenu());
+        }
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', (e) => this.handleSmoothScroll(e));
+        });
+    }
+
+    toggleMobileMenu() {
+        const isExpanded = this.navLinks.classList.contains('active');
+        this.navLinks.classList.toggle('active');
+        this.mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+    }
+
+    handleSmoothScroll(e) {
+        const href = e.currentTarget.getAttribute('href');
+        if (href.startsWith('#')) {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    }
+}
+
+class ServiceCards {
+    constructor() {
+        this.cards = document.querySelectorAll('.service-card');
+        this.initializeCards();
+    }
+
+    initializeCards() {
+        this.cards.forEach(card => {
+            card.addEventListener('click', (e) => this.handleCardClick(e));
+            this.addHoverEffect(card);
+        });
+    }
+
+    handleCardClick(e) {
+        const card = e.currentTarget;
+        const serviceId = card.dataset.serviceId;
+        
+        if (serviceId && services[serviceId]) {
+            window.location.href = `service-details.html?id=${serviceId}`;
         }
     }
 
-    function smoothScroll(e) {
+    addHoverEffect(card) {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-5px)';
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0)';
+        });
+    }
+}
+
+class ContactForm {
+    constructor() {
+        this.form = document.getElementById('contact-form');
+        if (this.form) {
+            this.validator = new FormValidator(this.form);
+            this.setupForm();
+        }
+    }
+
+    setupForm() {
+        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+    }
+
+    handleSubmit(e) {
         e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
+        this.validator.clearErrors();
 
-        if (targetElement) {
-            targetElement.scrollIntoView({
-                behavior: 'smooth'
-            });
+        const formData = new FormData(this.form);
+        const formFields = Object.fromEntries(formData.entries());
+
+        if (this.validateForm(formFields)) {
+            this.submitForm(formFields);
         }
     }
 
-    function initMobileMenu() {
-        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-        const navbarLinks = document.querySelector('.navbar-links');
-
-        if (mobileMenuToggle && navbarLinks) {
-            mobileMenuToggle.addEventListener('click', () => {
-                navbarLinks.classList.toggle('active');
-                mobileMenuToggle.setAttribute('aria-expanded', 
-                    navbarLinks.classList.contains('active'));
-            });
-        }
-    }
-
-    function initFormValidation() {
-        const contactForm = document.getElementById('contact-form');
-        
-        if (contactForm) {
-            contactForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                const name = document.getElementById('name');
-                const email = document.getElementById('email');
-                const message = document.getElementById('message');
-
-                const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
-                
-                // Reset previous error states
-                [name, email, message].forEach(el => el.classList.remove('error'));
-                
-                let isValid = true;
-                
-                if (!name.value.trim()) {
-                    name.classList.add('error');
-                    isValid = false;
-                }
-                
-                if (!isValidEmail) {
-                    email.classList.add('error');
-                    isValid = false;
-                }
-                
-                if (!message.value.trim()) {
-                    message.classList.add('error');
-                    isValid = false;
-                }
-
-                if (isValid) {
-                    console.log('Form submitted successfully', {
-                        name: name.value,
-                        email: email.value,
-                        message: message.value
-                    });
-                    
-                    // You would typically send form data to a server here
-                    alert('Thank you for your message! We will get back to you soon.');
-                    contactForm.reset();
-                }
-            });
-        }
-    }
-
-    function initServiceCardInteraction() {
-        const serviceCards = document.querySelectorAll('.service-card');
-        
-        serviceCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const serviceId = card.getAttribute('data-service-id');
-                window.location.href = `service-details.html?id=${serviceId}`;
-            });
+    validateForm(fields) {
+        let isValid = true;
+        Object.keys(fields).forEach(key => {
+            const field = this.form.querySelector(`#${key}`);
+            if (!this.validator.validateField(field)) {
+                isValid = false;
+            }
         });
+        return isValid;
     }
 
-    function init() {
-        initPerformanceOptimizations();
-        initMobileMenu();
-        initFormValidation();
-        initServiceCardInteraction();
-
-        const navLinks = document.querySelectorAll('a[href^="#"]');
-        navLinks.forEach(link => {
-            link.addEventListener('click', smoothScroll);
-        });
+    submitForm(data) {
+        // Simulate form submission
+        console.log('Submitting form:', data);
+        this.form.reset();
+        alert('Thank you for your message! We will get back to you soon.');
     }
+}
 
-    document.addEventListener('DOMContentLoaded', init);
-})();
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    const nav = new NavigationHandler();
+    const services = new ServiceCards();
+    const contact = new ContactForm();
+});
