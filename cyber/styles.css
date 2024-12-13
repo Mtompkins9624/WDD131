@@ -123,7 +123,21 @@ body {
 .service-card:hover {
     transform: scale(1.05);
 }
+.about {
+    padding: 4rem 5%;
+    background-color: white;
+}
 
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-content p {
+    line-height: 1.6;
+    color: var(--text-color);
+}
 /* Responsive Design */
 @media screen and (max-width: 768px) {
     .navbar-links {
