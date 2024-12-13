@@ -4,8 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyber Ops - Cybersecurity Solutions</title>
+    
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+    
+    <style>
+        :root {
+            --primary-color: #396E94;
+            --secondary-color: #E7C24F;
+            --accent-color-1: #A43312;
+            --background-color: #f4f4f4;
+            --text-color: #333;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+    </style>
+
+    <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="styles.css"></noscript>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+
+    <meta name="description" content="Comprehensive cybersecurity solutions for protecting your digital infrastructure">
+    <meta name="keywords" content="cybersecurity, network security, endpoint protection, security consulting">
 </head>
 <body>
     <nav class="navbar">
@@ -21,7 +53,8 @@
 
     <header class="hero" id="home">
         <div class="hero-content">
-            <img src="cyberimages/depositphotos_536047868-stock-illustration-endpoint-security-endpoint-protection-concept.jpg" alt="Cybersecurity protection" class="hero-image">
+            <img src="images/cybersecurity-hero.webp" alt="Cybersecurity Protection" 
+                 loading="lazy" width="1200" height="600" class="hero-background">
             <h1 class="hero-title">Protecting Your Digital Frontier</h1>
             <p class="hero-description">Comprehensive cybersecurity solutions tailored to your business needs</p>
             <a href="#contact" class="btn">Get Started</a>
@@ -32,25 +65,38 @@
         <h2 class="section-title">Our Services</h2>
         <div class="services-grid">
             <div class="service-card" data-service-id="network-security">
+                <img src="images/network-security-icon.webp" alt="Network Security" 
+                     loading="lazy" width="80" height="80" class="service-icon">
                 <h3>Network Security</h3>
                 <p>Robust protection for your entire network infrastructure</p>
             </div>
             <div class="service-card" data-service-id="endpoint-protection">
+                <img src="images/endpoint-protection-icon.webp" alt="Endpoint Protection" 
+                     loading="lazy" width="80" height="80" class="service-icon">
                 <h3>Endpoint Protection</h3>
                 <p>Secure every device connected to your network</p>
             </div>
             <div class="service-card" data-service-id="security-consulting">
+                <img src="images/security-consulting-icon.webp" alt="Security Consulting" 
+                     loading="lazy" width="80" height="80" class="service-icon">
                 <h3>Security Consulting</h3>
                 <p>Expert guidance to strengthen your cyber defenses</p>
             </div>
         </div>
     </section>
+
     <section class="about" id="about">
         <h2 class="section-title">About Cyber Ops</h2>
         <div class="about-content">
-            <p>Cyber Ops is a leading cybersecurity solutions provider dedicated to protecting businesses from digital threats. Our team of expert professionals is committed to delivering comprehensive security strategies tailored to your unique needs.</p>
+            <img src="images/team-photo.webp" alt="Cyber Ops Team" 
+                 loading="lazy" width="600" height="400" class="about-image">
+            <div class="about-text">
+                <p>Cyber Ops is a leading cybersecurity solutions provider dedicated to protecting businesses from digital threats. Founded by a team of experienced cybersecurity professionals, we offer comprehensive protection strategies tailored to your unique needs.</p>
+                <p>Our mission is to empower businesses with robust, innovative security solutions that safeguard your digital assets and give you peace of mind.</p>
+            </div>
         </div>
     </section>
+
     <section id="contact" class="contact">
         <h2>Contact Us</h2>
         <form id="contact-form">
@@ -65,6 +111,6 @@
         <p>&copy; 2024 Cyber Ops. All Rights Reserved.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
