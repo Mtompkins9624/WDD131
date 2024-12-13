@@ -101,3 +101,25 @@ function loadServiceDetails() {
         ).join('');
     }
 }
+
+function smoothScroll(e) {
+    e.preventDefault();
+    
+    // Get the target element from the href attribute
+    const targetId = this.getAttribute('href');
+    const targetElement = document.querySelector(targetId);
+
+    if (targetElement) {
+        targetElement.scrollIntoView({
+            behavior: 'smooth'
+        });
+    }
+}
+
+// Select all links that start with # 
+const navLinks = document.querySelectorAll('a[href^="#"]');
+
+// Add smooth scroll to these links
+navLinks.forEach(link => {
+    link.addEventListener('click', smoothScroll);
+});
