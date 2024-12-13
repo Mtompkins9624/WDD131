@@ -73,6 +73,15 @@ body {
     overflow: hidden;
 }
 
+.hero {
+    position: relative;
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 6rem 1rem;
+    overflow: hidden;
+}
+
 .hero-background {
     position: absolute;
     top: 0;
@@ -80,7 +89,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.3;
+    opacity: 0.2;
     z-index: 1;
 }
 
@@ -92,13 +101,14 @@ body {
 }
 
 .hero-title {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
 }
 
 .hero-description {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    margin-bottom: 2.5rem;
 }
 
 .btn {
@@ -184,7 +194,7 @@ body {
 #contact-form textarea {
     margin-bottom: 1rem;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1 px solid #ddd;
     border-radius: 5px;
 }
 
