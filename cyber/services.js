@@ -1,9 +1,8 @@
 // services.js
-export const services = {
-    networkSecurity: {
-        id: 'network-security',
+export const serviceDetails = {
+    'network-security': {
         title: 'Network Security',
-        description: 'Robust protection for your entire network infrastructure.',
+        description: 'Comprehensive network protection solutions. Our robust security infrastructure safeguards your digital assets against unauthorized access, data breaches, and network-based attacks.',
         features: [
             'Firewall Management',
             'Intrusion Detection',
@@ -11,21 +10,19 @@ export const services = {
             'Network Monitoring'
         ]
     },
-    endpointProtection: {
-        id: 'endpoint-protection',
+    'endpoint-protection': {
         title: 'Endpoint Protection',
-        description: 'Secure every device connected to your network.',
+        description: 'Complete device security management that ensures every endpoint in your network is protected against emerging threats and vulnerabilities.',
         features: [
             'Device Management',
-            'Antivirus Solutions',
+            'Antivirus Protection',
             'Access Control',
             'Data Encryption'
         ]
     },
-    securityConsulting: {
-        id: 'security-consulting',
+    'security-consulting': {
         title: 'Security Consulting',
-        description: 'Expert guidance to strengthen your cyber defenses.',
+        description: 'Expert security guidance and planning to help your organization build and maintain a strong security posture in today\'s evolving threat landscape.',
         features: [
             'Security Assessment',
             'Compliance Consulting',
@@ -34,3 +31,7 @@ export const services = {
         ]
     }
 };
+
+export function getServiceDetails(id) {
+    return serviceDetails[id] || null;
+}

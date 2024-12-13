@@ -1,39 +1,5 @@
 // script.js
-import { services } from './services.js';
-
-class FormValidator {
-    constructor(formElement) {
-        this.form = formElement;
-        this.errors = [];
-    }
-
-    validateField(field) {
-        if (field.value.trim() === '') {
-            field.classList.add('error');
-            this.errors.push(`${field.id} is required`);
-            return false;
-        }
-        
-        if (field.type === 'email' && !this.isValidEmail(field.value)) {
-            field.classList.add('error');
-            this.errors.push('Invalid email format');
-            return false;
-        }
-
-        field.classList.remove('error');
-        return true;
-    }
-
-    isValidEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-
-    clearErrors() {
-        this.errors = [];
-        const errorFields = this.form.querySelectorAll('.error');
-        errorFields.forEach(field => field.classList.remove('error'));
-    }
-}
+import { getServiceDetails } from './services.js';
 
 class NavigationHandler {
     constructor() {
@@ -47,7 +13,6 @@ class NavigationHandler {
             this.mobileMenuBtn.addEventListener('click', () => this.toggleMobileMenu());
         }
 
-        // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(link => {
             link.addEventListener('click', (e) => this.handleSmoothScroll(e));
         });
@@ -56,7 +21,9 @@ class NavigationHandler {
     toggleMobileMenu() {
         const isExpanded = this.navLinks.classList.contains('active');
         this.navLinks.classList.toggle('active');
-        this.mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+        if (this.mobileMenuBtn) {
+            this.mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+        }
     }
 
     handleSmoothScroll(e) {
@@ -86,9 +53,8 @@ class ServiceCards {
 
     handleCardClick(e) {
         const card = e.currentTarget;
-        const serviceId = card.dataset.serviceId;
-        
-        if (serviceId && services[serviceId]) {
+        const serviceId = card.getAttribute('data-service-id');
+        if (serviceId) {
             window.location.href = `service-details.html?id=${serviceId}`;
         }
     }
@@ -108,7 +74,6 @@ class ContactForm {
     constructor() {
         this.form = document.getElementById('contact-form');
         if (this.form) {
-            this.validator = new FormValidator(this.form);
             this.setupForm();
         }
     }
@@ -119,8 +84,7 @@ class ContactForm {
 
     handleSubmit(e) {
         e.preventDefault();
-        this.validator.clearErrors();
-
+        
         const formData = new FormData(this.form);
         const formFields = Object.fromEntries(formData.entries());
 
@@ -132,17 +96,30 @@ class ContactForm {
     validateForm(fields) {
         let isValid = true;
         Object.keys(fields).forEach(key => {
+            const value = fields[key].trim();
             const field = this.form.querySelector(`#${key}`);
-            if (!this.validator.validateField(field)) {
+            
+            if (value === '') {
+                field.classList.add('error');
+                isValid = false;
+            } else {
+                field.classList.remove('error');
+            }
+
+            if (key === 'email' && !this.isValidEmail(value)) {
+                field.classList.add('error');
                 isValid = false;
             }
         });
         return isValid;
     }
 
+    isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
     submitForm(data) {
-        // Simulate form submission
-        console.log('Submitting form:', data);
+        console.log('Form submitted:', data);
         this.form.reset();
         alert('Thank you for your message! We will get back to you soon.');
     }
@@ -150,7 +127,18 @@ class ContactForm {
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    const nav = new NavigationHandler();
-    const services = new ServiceCards();
-    const contact = new ContactForm();
+    new NavigationHandler();
+    new ServiceCards();
+    new ContactForm();
+
+    // If we're on the service details page, load the service content
+    const urlParams = new URLSearchParams(window.location.search);
+    const serviceId = urlParams.get('id');
+    if (serviceId) {
+        const serviceInfo = getServiceDetails(serviceId);
+        if (serviceInfo) {
+            document.querySelector('.service-hero-text h1').textContent = serviceInfo.title;
+            document.querySelector('.service-hero-text p').textContent = serviceInfo.description;
+        }
+    }
 });
