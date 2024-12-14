@@ -1,25 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyber Ops - Cybersecurity Solutions</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cyber Ops - Cybersecurity Solutions</title>
+        
+        <!-- Preconnect to font domains -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        
+        <!-- Preload critical fonts -->
+        <link rel="preload" as="font" 
+              href="https://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCs16Hw5aXp-p7K4GLs.woff2"
+              crossorigin>
+        <link rel="preload" as="font"
+              href="https://fonts.gstatic.com/s/opensans/v34/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-mu0SC55I.woff2"
+              crossorigin>
     
-
-        <script type="module" src="script.js" defer></script>
-        <script type="module" src="services.js" defer></script>
+        <!-- Add this style section -->
+        <style>
+            /* Font definitions */
+            @font-face {
+                font-family: 'Montserrat';
+                font-style: normal;
+                font-weight: 400;
+                font-display: swap;
+                size-adjust: 100%;
+                src: local('Montserrat'),
+                     url(https://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCs16Hw5aXp-p7K4GLs.woff2) format('woff2');
+            }
     
-
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+            @font-face {
+                font-family: 'Open Sans';
+                font-style: normal;
+                font-weight: 400;
+                font-display: swap;
+                size-adjust: 100%;
+                src: local('Open Sans'),
+                     url(https://fonts.gstatic.com/s/opensans/v34/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-mu0SC55I.woff2) format('woff2');
+            }
     
-    <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'"preload>
-
-    <meta name="description" content="Comprehensive cybersecurity solutions for protecting your digital infrastructure">
-    <meta name="keywords" content="cybersecurity, network security, endpoint protection, security consulting">
-</head>
+            /* Base styles */
+            :root {
+                --primary-color: #1a1d1d;
+                --secondary-color: #0056b3;
+                --light-text: #ffffff;
+            }
+    
+            /* Prevent layout shifts */
+            .hero-title {
+                min-height: 60px;
+            }
+    
+            .hero-description {
+                min-height: 40px;
+            }
+    
+            .service-card h3 {
+                min-height: 28px;
+            }
+    
+            .service-card p {
+                min-height: 48px;
+            }
+    
+            .about-
 <body>
     <nav class="navbar">
         <a href="#" class="navbar-logo">Cyber Ops</a>
