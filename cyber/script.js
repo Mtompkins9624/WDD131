@@ -125,20 +125,48 @@ class ContactForm {
     }
 }
 
+class ServiceDetailsHandler {
+    constructor() {
+        this.initializeServiceDetails();
+    }
+
+    initializeServiceDetails() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const serviceId = urlParams.get('id');
+        
+        if (serviceId) {
+            const serviceInfo = getServiceDetails(serviceId);
+            if (serviceInfo) {
+                // Update page content
+                document.title = `${serviceInfo.title} - Cyber Ops`;
+                
+                const titleElement = document.querySelector('.service-hero-text h1');
+                const descriptionElement = document.querySelector('.service-hero-text p');
+                
+                if (titleElement) titleElement.textContent = serviceInfo.title;
+                if (descriptionElement) descriptionElement.textContent = serviceInfo.description;
+                
+                // Update features if they exist
+                if (serviceInfo.features) {
+                    const featuresGrid = document.querySelector('.features-grid');
+                    if (featuresGrid) {
+                        featuresGrid.innerHTML = serviceInfo.features.map(feature => `
+                            <div class="feature-card">
+                                <h3>${feature}</h3>
+                                <p>Detailed information about ${feature}</p>
+                            </div>
+                        `).join('');
+                    }
+                }
+            }
+        }
+    }
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new NavigationHandler();
     new ServiceCards();
     new ContactForm();
-
-    // If we're on the service details page, load the service content
-    const urlParams = new URLSearchParams(window.location.search);
-    const serviceId = urlParams.get('id');
-    if (serviceId) {
-        const serviceInfo = getServiceDetails(serviceId);
-        if (serviceInfo) {
-            document.querySelector('.service-hero-text h1').textContent = serviceInfo.title;
-            document.querySelector('.service-hero-text p').textContent = serviceInfo.description;
-        }
-    }
+    new ServiceDetailsHandler();
 });

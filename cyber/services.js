@@ -1,4 +1,3 @@
-// services.js
 export const serviceDetails = {
     'network-security': {
         title: 'Network Security',
