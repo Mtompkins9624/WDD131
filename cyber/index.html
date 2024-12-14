@@ -64,7 +64,36 @@
                 min-height: 48px;
             }
     
-            .about-
+            .about-text p {
+                min-height: 72px;
+            }
+    
+            /* Hero optimization */
+            .hero {
+                background-color: var(--primary-color);
+                contain: layout style paint;
+            }
+    
+            .hero-background {
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+                transform: translateZ(0);
+                will-change: opacity;
+            }
+        </style>
+    
+        <!-- Defer Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" 
+              rel="stylesheet" media="print" 
+              onload="this.media='all'">
+    
+        <!-- Defer JavaScript -->
+        <script type="module" src="script.js" defer></script>
+        <script type="module" src="services.js" defer></script>
+    
+        <meta name="description" content="Comprehensive cybersecurity solutions for protecting your digital infrastructure">
+        <meta name="keywords" content="cybersecurity, network security, endpoint protection, security consulting">
+    </head>
 <body>
     <nav class="navbar">
         <a href="#" class="navbar-logo">Cyber Ops</a>
